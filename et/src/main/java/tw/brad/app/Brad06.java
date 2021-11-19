@@ -20,7 +20,14 @@ public class Brad06 extends HttpServlet {
 		Map<String, String[]> maps = req.getParameterMap();
 		Set<String> keys = maps.keySet();
 		for (String key : keys) {
-			System.out.println(key);
+			String[] value = maps.get(key);
+			
+			StringBuffer sb = new StringBuffer();
+			for (String v: value) {
+				sb.append(v + ";");
+			}
+			
+			System.out.println(key + ":" + sb.toString());
 		}
 		
 		

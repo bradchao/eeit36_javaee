@@ -1,7 +1,8 @@
 package tw.brad.app;
 
 import java.io.IOException;
-import java.util.Enumeration;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/Brad05")
-public class Brad05 extends HttpServlet {
+@WebServlet("/Brad06")
+public class Brad06 extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		
-		// 列舉物件
-		Enumeration<String> names = req.getHeaderNames();
-		while( names.hasMoreElements()) {
-			String name = names.nextElement();
-			String valueString = req.getHeader(name);
-			System.out.println(name + ":" + valueString);
+	
+		Map<String, String[]> maps = req.getParameterMap();
+		Set<String> keys = maps.keySet();
+		for (String key : keys) {
+			System.out.println(key);
 		}
-		System.out.println("------------------------");
+		
 		
 	}
 

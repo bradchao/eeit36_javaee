@@ -22,6 +22,16 @@ public class Brad10 extends HttpServlet {
 		String passwd = req.getParameter("passwd");
 		String gender = req.getParameter("gender");
 		
+		String[] likes = req.getParameterValues("like");
+		try {
+			for (String like : likes) {
+				System.out.println(like);
+			}
+		}catch (Exception e) {
+			
+		}
+		
+		
 		//----------------------------------
 		resp.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = resp.getWriter();

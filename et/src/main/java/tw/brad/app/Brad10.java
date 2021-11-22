@@ -31,6 +31,10 @@ public class Brad10 extends HttpServlet {
 			
 		}
 		
+		String area = req.getParameter("area");
+		String memo = req.getParameter("memo");
+		String browser = req.getParameter("browser");
+		
 		
 		//----------------------------------
 		resp.setContentType("text/html; charset=UTF-8");
@@ -39,6 +43,9 @@ public class Brad10 extends HttpServlet {
 		out.print(name + "<br />");
 		out.print(passwd + "<br />");
 		out.print(gender + "<br />");
+		out.print(area + "<br />");
+		out.print(memo + "<br />");
+		out.print(browser + "<br />");
 		
 		resp.flushBuffer();
 		

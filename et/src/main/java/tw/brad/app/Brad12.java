@@ -21,36 +21,41 @@ public class Brad12 extends HttpServlet {
 		String op = req.getParameter("op");
 		String rString = "";
 		
-		try {
-			int x = Integer.parseInt(xString);
-			int y = Integer.parseInt(yString);
-			int result = 0, mod = 0;
+		if (xString != null) {
 			
-			switch (op) {
-				case "1":
-					result = x + y;
-					rString = result + "";
-					break;
-				case "2":
-					result = x - y;
-					rString = result + "";
-					break;
-				case "3":
-					result = x * y;
-					rString = result + "";
-					break;
-				case "4":
-					result = x / y;
-					mod = x % y;
-					rString = result + " ...... " + mod;
-					break;
+			try {
+				int x = Integer.parseInt(xString);
+				int y = Integer.parseInt(yString);
+				int result = 0, mod = 0;
+				
+				switch (op) {
+					case "1":
+						result = x + y;
+						rString = result + "";
+						break;
+					case "2":
+						result = x - y;
+						rString = result + "";
+						break;
+					case "3":
+						result = x * y;
+						rString = result + "";
+						break;
+					case "4":
+						result = x / y;
+						mod = x % y;
+						rString = result + " ...... " + mod;
+						break;
+				}
+				
+				//rString = result + "";
+				//System.out.println(result);
+			}catch (Exception e) {
+				//System.out.println(e.toString());
+				
 			}
-			
-			//rString = result + "";
-			//System.out.println(result);
-		}catch (Exception e) {
-			//System.out.println(e.toString());
-			
+		}else {
+			rString = xString = yString = op = "";
 		}
 		
 		//-------------------------------------------
@@ -65,10 +70,10 @@ public class Brad12 extends HttpServlet {
 			.append(String.format("<input name='x' value='%s' />\n", xString))
 			
 			.append("<select name='op'>\n")
-			.append("<option value='1'>+</option>")
-			.append("<option value='2'>-</option>")
-			.append("<option value='3'>x</option>")
-			.append("<option value='4'>/</option>")
+			.append(String.format("<option value='1' %s>+</option>", (op.equals("1")?"selected":"") ))
+			.append(String.format("<option value='2' %s>-</option>", (op.equals("2")?"selected":"") ))
+			.append(String.format("<option value='3' %s>x</option>", (op.equals("3")?"selected":"") ))
+			.append(String.format("<option value='4' %s>/</option>", (op.equals("4")?"selected":"") ))
 			.append("</select>\n")
 			
 			.append(String.format("<input name='y' value='%s' />\n", yString))

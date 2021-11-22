@@ -40,9 +40,9 @@ public class Brad12 extends HttpServlet {
 		
 		out.append("<meta charset='UTF-8'>")
 			.append("<form action='Brad12'>")
-			.append("<input name='x' />\n")
+			.append(String.format("<input name='x' value='%s' />\n", xString))
 			.append("+\n")
-			.append("<input name='y' />\n")
+			.append(String.format("<input name='y' value='%s' />\n", yString))
 			.append("<input type='submit' value='=' />")
 			.append(rString)
 			.append("</form>");

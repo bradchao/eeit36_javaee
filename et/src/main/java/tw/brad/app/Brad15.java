@@ -25,17 +25,19 @@ public class Brad15 extends HttpServlet {
 		// 1. 預備, 接收參數, 整理參數
 		String x = req.getParameter("x");
 		String y = req.getParameter("y");
-		if (x == null) x = "0";
-		if (y == null) y = "0";
+		String op = req.getParameter("op");
+		if (x == null) x = "";
+		if (y == null) y = "";
+		if (op == null) op = "";
 		
 		// 2. 演算法 => Model
-		Brad16 model = new Brad16(x, y);
+		Brad16 model = new Brad16(x, y, op);
 		double result = model.operator();
 		System.out.println(result);
 		
 		// 3. 呈現 => View
 		RequestDispatcher dispatcher = req.getRequestDispatcher(
-				String.format("Brad17?x=%s&y=%s&r=%f", x, y, result));
+				String.format("Brad17?x=%s&y=%s&op=%s&r=%f", x, y, op, result));
 		dispatcher.forward(req, resp);
 		
 	}

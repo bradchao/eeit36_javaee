@@ -25,11 +25,17 @@ public class Brad17 extends HttpServlet {
 		String x = req.getParameter("x");
 		String y = req.getParameter("y");
 		String r = req.getParameter("r");
+		String op = req.getParameter("op");
+		
+		String op1 = op.equals("1")?"selected":"";
+		String op2 = op.equals("2")?"selected":"";
+		String op3 = op.equals("3")?"selected":"";
+		String op4 = op.equals("4")?"selected":"";
 		
 		resp.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = resp.getWriter();
-		String html =  loadView("view2");
-		out.print(String.format(html, x, y, r ));
+		String html =  loadView("view1");
+		out.print(String.format(html, x, op1, op2, op3, op4, y, r ));
 		resp.flushBuffer();
 	}
 	

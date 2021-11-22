@@ -27,19 +27,19 @@ public class Brad12 extends HttpServlet {
 			int result = 0, mod = 0;
 			
 			switch (op) {
-				case "+":
+				case "1":
 					result = x + y;
 					rString = result + "";
 					break;
-				case "-":
+				case "2":
 					result = x - y;
 					rString = result + "";
 					break;
-				case "x":
+				case "3":
 					result = x * y;
 					rString = result + "";
 					break;
-				case "/":
+				case "4":
 					result = x / y;
 					mod = x % y;
 					rString = result + " ...... " + mod;
@@ -63,9 +63,16 @@ public class Brad12 extends HttpServlet {
 		out.append("<meta charset='UTF-8'>")
 			.append("<form action='Brad12'>")
 			.append(String.format("<input name='x' value='%s' />\n", xString))
-			.append("+\n")
+			
+			.append("<select name='op'>\n")
+			.append("<option value='1'>+</option>")
+			.append("<option value='2'>-</option>")
+			.append("<option value='3'>x</option>")
+			.append("<option value='4'>/</option>")
+			.append("</select>\n")
+			
 			.append(String.format("<input name='y' value='%s' />\n", yString))
-			.append("<input type='submit' value='=' />")
+			.append("<input type='submit' value='=' />\n")
 			.append(rString)
 			.append("</form>");
 		

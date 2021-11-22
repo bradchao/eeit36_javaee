@@ -34,7 +34,9 @@ public class Brad15 extends HttpServlet {
 		System.out.println(result);
 		
 		// 3. 呈現 => View
-		
+		RequestDispatcher dispatcher = req.getRequestDispatcher(
+				String.format("Brad17?x=%s&y=%s&r=%f", x, y, result));
+		dispatcher.forward(req, resp);
 		
 	}
 

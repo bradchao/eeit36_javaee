@@ -18,13 +18,35 @@ public class Brad12 extends HttpServlet {
 
 		String xString = req.getParameter("x");
 		String yString = req.getParameter("y");
+		String op = req.getParameter("op");
 		String rString = "";
 		
 		try {
 			int x = Integer.parseInt(xString);
 			int y = Integer.parseInt(yString);
-			int result = x + y;
-			rString = result + "";
+			int result = 0, mod = 0;
+			
+			switch (op) {
+				case "+":
+					result = x + y;
+					rString = result + "";
+					break;
+				case "-":
+					result = x - y;
+					rString = result + "";
+					break;
+				case "x":
+					result = x * y;
+					rString = result + "";
+					break;
+				case "/":
+					result = x / y;
+					mod = x % y;
+					rString = result + " ...... " + mod;
+					break;
+			}
+			
+			//rString = result + "";
 			//System.out.println(result);
 		}catch (Exception e) {
 			//System.out.println(e.toString());

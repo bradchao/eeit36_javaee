@@ -19,11 +19,21 @@ public class Brad14 extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		
+		String xString = req.getParameter("x");
+		String yString = req.getParameter("y");
+		int x = 0, y = 0;
+		try {
+			x = Integer.parseInt(xString);
+			y = Integer.parseInt(yString);
+		}catch (Exception e) {
+		}
+		
+		
 		//----------------------------------
 		resp.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = resp.getWriter();
 
-		out.println("Lottery : " + (int)(Math.random()*49+1));
+		out.println("Lottery : " + (int)(Math.random()*x + y));
 		
 		resp.flushBuffer();
 	}

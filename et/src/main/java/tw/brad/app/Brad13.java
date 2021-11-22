@@ -20,7 +20,8 @@ public class Brad13 extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("Brad14");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("Brad14?y=1000");
+//		RequestDispatcher dispatcher = req.getRequestDispatcher("brad13.html");
 		
 		
 		//----------------------------------
@@ -30,7 +31,9 @@ public class Brad13 extends HttpServlet {
 		out.println("<h1>Brad Big Company</h1>");
 		out.println("<hr />");
 		
-		dispatcher.include(req, resp);
+		//dispatcher.include(req, resp);
+		
+		dispatcher.forward(req, resp);
 		
 		out.println("<hr />");
 		out.println("Copyleft");

@@ -1,6 +1,7 @@
 package tw.brad.app;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -36,23 +37,30 @@ public class Brad22 extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String account = "eric";
-		String passwd = "123456";
-		String realname = "艾瑞克";
+		
+		request.setCharacterEncoding("UTF-8");
+		
+		String account = request.getParameter("account");
+		String passwd = request.getParameter("passwd");
+		String realname = request.getParameter("realname");
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
 		try {
 			if (!isAccountDup(account)) {
 				int rows = addMember(account, passwd, realname);
 				if (rows > 0) {
-					System.out.println("新增成功");
+					out.println("新增成功");
 				}else {
-					System.out.println("新增失敗");
+					out.println("新增失敗");
 				}
 			}else {
-				System.out.println("帳號重複");
+				out.println("帳號重複");
 			}
 			
 		}catch (Exception e) {
-			System.out.println(e.toString());
+			out.println(e.toString());
 		}
 	}
 	

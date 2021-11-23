@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.cj.log.Log;
+
 import tw.brad.utils.BCrypt;
 
 @WebServlet("/Brad23")
@@ -37,22 +39,29 @@ public class Brad23 extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
+		response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "get out here");
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
 		String account = request.getParameter("account");
 		String passwd = request.getParameter("passwd");
 		
+		response.setContentType("text/html; charset=UTF-8");
+		System.out.println(account + ":" + passwd);
 		try {
 			if (login(account, passwd)) {
-				System.out.println("OK");
+				response.sendRedirect("main.html");
 			}else {
-				System.out.println("XX");
+				response.sendRedirect("brad23.html");
 			}
 		}catch (Exception e) {
 			System.out.println(e.toString());
 		}
-		
 		
 	}
 	

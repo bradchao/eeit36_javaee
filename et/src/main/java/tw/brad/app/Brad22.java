@@ -36,13 +36,20 @@ public class Brad22 extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String account = "eric";
+		String passwd = "123456";
+		String realname = "艾瑞克";
 		try {
-			String account = "brad";
-			String passwd = "123456";
-			String realname = "Brad";
-			
-			
-			
+			if (!isAccountDup(account)) {
+				int rows = addMember(account, passwd, realname);
+				if (rows > 0) {
+					System.out.println("新增成功");
+				}else {
+					System.out.println("新增失敗");
+				}
+			}else {
+				System.out.println("帳號重複");
+			}
 			
 		}catch (Exception e) {
 			System.out.println(e.toString());
@@ -55,7 +62,7 @@ public class Brad22 extends HttpServlet {
 		pstmt.setString(1, account);
 		ResultSet rs = pstmt.executeQuery();
 		rs.next();
-		int count = rs.getInt("count");
+		int count = rs.getInt("count(*)");
 		
 		return count > 0;
 	}

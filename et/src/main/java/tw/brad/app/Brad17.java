@@ -2,8 +2,10 @@ package tw.brad.app;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
@@ -49,7 +51,9 @@ public class Brad17 extends HttpServlet {
 		File source = new File(loadFile);
 		
 		StringBuffer sb = new StringBuffer();
-		try (BufferedReader reader = new BufferedReader(new FileReader(source))){
+		try (FileInputStream fin = new FileInputStream(source);
+				InputStreamReader ir = new InputStreamReader(fin, "UTF-8");
+				BufferedReader reader = new BufferedReader(ir)){
 			
 			String line;
 			while ( (line = reader.readLine()) != null) {

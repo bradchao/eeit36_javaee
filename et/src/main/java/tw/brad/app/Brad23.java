@@ -17,11 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import tw.brad.utils.BCrypt;
 
-@WebServlet("/Brad22")
-public class Brad22 extends HttpServlet {
+@WebServlet("/Brad23")
+public class Brad23 extends HttpServlet {
 	private Connection connection;
 	
-	public Brad22() {
+	public Brad23() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
@@ -42,55 +42,36 @@ public class Brad22 extends HttpServlet {
 		
 		String account = request.getParameter("account");
 		String passwd = request.getParameter("passwd");
-		String realname = request.getParameter("realname");
-		
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
 		
 		try {
-			if (!isAccountDup(account)) {
-				int rows = addMember(account, passwd, realname);
-				if (rows > 0) {
-					out.println("新增成功");
-				}else {
-					out.println("新增失敗");
-				}
+			if (login(account, passwd)) {
+				System.out.println("OK");
 			}else {
-				out.println("帳號重複");
+				System.out.println("XX");
 			}
-			
 		}catch (Exception e) {
-			out.println(e.toString());
+			System.out.println(e.toString());
 		}
+		
+		
 	}
 	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doGet(req, resp);
-	}
-	
-	private boolean isAccountDup(String account) throws Exception {
-		String sql = "SELECT count(*) FROM member WHERE account = ?";
+	private boolean login(String account, String passwd) throws Exception {
+		boolean isRight = false;
+		
+		String sql = "SELECT * FROM member WHERE account = ?";
 		PreparedStatement pstmt = connection.prepareStatement(sql);
 		pstmt.setString(1, account);
 		ResultSet rs = pstmt.executeQuery();
-		rs.next();
-		int count = rs.getInt("count(*)");
 		
-		return count > 0;
+		if (rs.next()) {
+			String hashPasswdString = rs.getString("passwd");
+			if (BCrypt.checkpw(passwd, hashPasswdString)) {
+				isRight = true;
+			}
+		}
+		
+		return isRight;
 	}
 	
-	private int addMember(String account, String passwd, String realname) throws Exception {
-		String sql = "INSERT INTO MEMBER (account,passwd,realname) VALUES (?,?,?)";
-		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setString(1, account);
-		pstmt.setString(2, BCrypt.hashpw(passwd,BCrypt.gensalt()));
-		pstmt.setString(3, realname);
-		
-		int count = pstmt.executeUpdate();
-		return count;
-	}
-	
-	
-
 }

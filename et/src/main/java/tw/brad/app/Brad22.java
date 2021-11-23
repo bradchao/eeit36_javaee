@@ -18,11 +18,18 @@ import tw.brad.utils.BCrypt;
 
 @WebServlet("/Brad22")
 public class Brad22 extends HttpServlet {
+	private Connection connection;
 	
 	public Brad22() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			System.out.println("OK");
+			
+			Properties properties = new Properties();
+			properties.put("user", "root");
+			properties.put("password", "root");
+			connection = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/eeit36", properties);
+					
 		}catch (Exception e) {
 			System.out.println(e.toString());
 		}		
@@ -30,28 +37,38 @@ public class Brad22 extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			int i = addMember("brad", "123456", "趙令文");
-			System.out.println(i);
+			String account = "brad";
+			String passwd = "123456";
+			String realname = "Brad";
+			
+			
+			
+			
 		}catch (Exception e) {
 			System.out.println(e.toString());
 		}
 	}
 	
+	private boolean isAccountDup(String account) throws Exception {
+		String sql = "SELECT count(*) FROM member WHERE account = ?";
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setString(1, account);
+		ResultSet rs = pstmt.executeQuery();
+		rs.next();
+		int count = rs.getInt("count");
+		
+		return count > 0;
+	}
+	
 	private int addMember(String account, String passwd, String realname) throws Exception {
-		Properties properties = new Properties();
-		properties.put("user", "root");
-		properties.put("password", "root");
-		try (Connection connection = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/eeit36", properties)){
-			String sql = "INSERT INTO MEMBER (account,passwd,realname) VALUES (?,?,?)";
-			PreparedStatement pstmt = connection.prepareStatement(sql);
-			pstmt.setString(1, account);
-			pstmt.setString(2, BCrypt.hashpw(passwd,BCrypt.gensalt()));
-			pstmt.setString(3, realname);
-			
-			int count = pstmt.executeUpdate();
-			return count;
-		}
+		String sql = "INSERT INTO MEMBER (account,passwd,realname) VALUES (?,?,?)";
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setString(1, account);
+		pstmt.setString(2, BCrypt.hashpw(passwd,BCrypt.gensalt()));
+		pstmt.setString(3, realname);
+		
+		int count = pstmt.executeUpdate();
+		return count;
 	}
 	
 	

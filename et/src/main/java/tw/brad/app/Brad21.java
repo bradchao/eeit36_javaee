@@ -3,6 +3,8 @@ package tw.brad.app;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Properties;
 
 import javax.servlet.ServletException;
@@ -34,7 +36,12 @@ public class Brad21 extends HttpServlet {
 		properties.put("password", "root");
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/", properties)){
 			
-			System.out.println("OK2");
+			Statement stmtStatement = connection.createStatement();
+			ResultSet rs = stmtStatement.executeQuery("show databases");
+			while (rs.next()) {
+				String dbNameString = rs.getString(1);
+				System.out.println(dbNameString);
+			}
 			
 		}catch (Exception e) {
 			System.out.println(e.toString());

@@ -18,6 +18,14 @@ public class Brad19 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
+		String rateString = request.getParameter("rate");
+		double rate  = 0;
+		
+		try {
+			rate = Double.parseDouble(rateString);
+		}catch (Exception e) {
+		}
+		
 		response.setContentType("image/jpeg");
 		
 		BufferedImage bimg = new BufferedImage(400, 20, BufferedImage.TYPE_INT_RGB);
@@ -25,6 +33,8 @@ public class Brad19 extends HttpServlet {
 		Graphics2D g2d = bimg.createGraphics();
 		g2d.setColor(Color.YELLOW);
 		g2d.fillRect(0, 0, 400, 20);
+		g2d.setColor(Color.RED);
+		g2d.fillRect(0, 0, (int)(400*(rate/100)), 20);
 		
 		OutputStream out = response.getOutputStream();
 		ImageIO.write(bimg, "jpeg", out);

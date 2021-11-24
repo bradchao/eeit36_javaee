@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import tw.brad.utils.BradUtils;
+
 /*
  * Viewer
  */
@@ -36,37 +38,10 @@ public class Brad17 extends HttpServlet {
 		
 		resp.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = resp.getWriter();
-		String html =  loadView("view1");
+		String html =  BradUtils.loadView("view1");
 		out.print(String.format(html, x, op1, op2, op3, op4, y, r ));
 		resp.flushBuffer();
 	}
-	
-	// /Users/brad/git/repository8/et/src/main/webapp/views
-	
-	private String loadView(String viewFileName) {
-	
-		String loadFile = 
-				String.format(
-						"/Users/brad/git/repository8/et/src/main/webapp/views/%s.html", viewFileName); 
-		File source = new File(loadFile);
-		
-		StringBuffer sb = new StringBuffer();
-		try (FileInputStream fin = new FileInputStream(source);
-				InputStreamReader ir = new InputStreamReader(fin, "UTF-8");
-				BufferedReader reader = new BufferedReader(ir)){
-			
-			String line;
-			while ( (line = reader.readLine()) != null) {
-				sb.append(line);
-			}
-			
-		}catch (Exception e) {
-			System.out.println(e.toString());
-		}
-		
-		return sb.toString();
-	}
-	
 	
 
 }

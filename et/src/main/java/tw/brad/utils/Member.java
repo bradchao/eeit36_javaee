@@ -23,6 +23,9 @@ public class Member {
 		this.realname = realname;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return id + ":" + account + ":" + realname;
+	}
 	
 }

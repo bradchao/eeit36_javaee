@@ -7,6 +7,32 @@ import java.io.InputStreamReader;
 
 public class BradUtils {
 
+	public static int createLottery() {
+		return (int)(Math.random()*49 + 1);
+	}
+	
+	public static String cal(String x , String y, String op) {
+		
+		if (x.length() == 0 && y.length() == 0 && op.length() == 0) {
+			return "";
+		}else {
+			try {
+				int intX = Integer.parseInt(x);
+				int intY = Integer.parseInt(y);
+				switch (op) {
+					case "1": return "" + (intX + intY); 
+					case "2": return "" + (intX - intY); 
+					case "3": return "" + (intX * intY); 
+					case "4": return "" + (intX / intY) + " ...... " + (intX % intY);
+					default: return "";
+				}
+			}catch (Exception e) {
+				return "";
+			}
+		}
+		
+	}
+	
 	public static String loadView(String viewFileName) {
 		
 		String loadFile = 

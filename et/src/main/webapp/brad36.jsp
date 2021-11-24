@@ -4,9 +4,16 @@
 <%
 	String xString = request.getParameter("x");
 	String yString = request.getParameter("y");
+	String result = "";
 	
-	int x = Integer.parseInt(xString);
-	int y = Integer.parseInt(yString);
+	try{
+		int x = Integer.parseInt(xString);
+		int y = Integer.parseInt(yString);
+		int intResult = x + y;
+		result = intResult + "";
+	}catch (Exception e){
+		
+	}
 	
 %>    
 <!DOCTYPE html>
@@ -21,7 +28,8 @@
 	<input name="x" />
 	+
 	<input name="y" />
-	<input type="submit" value="=" />	
+	<input type="submit" value="=" />
+	<span><%= result %></span>	
 </form>
 
 

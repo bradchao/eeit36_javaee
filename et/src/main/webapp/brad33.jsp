@@ -10,14 +10,18 @@
 
 	<table border="1" width="100%">
 		<%
-			for (int k=0; k<2; k++){
+			for (int k=0; k<4; k++){
 				
-				out.println("<tr>");
+				%><tr><%
 				
 				for (int j=2; j<=5; j++){
 					int newj = j + 4*k;
 					
-					out.print("<td bgcolor='pink'>");
+					if((j+k)%2==0){
+						out.print("<td bgcolor='pink'>");
+					}else{
+						out.print("<td bgcolor='yellow'>");
+					}
 					
 					for (int i=1; i<=9; i++){
 						int r = newj * i;
@@ -27,7 +31,7 @@
 					out.print("</td>");
 				}
 				
-				out.println("</tr>");
+				%></tr><%
 			}
 			
 		%>

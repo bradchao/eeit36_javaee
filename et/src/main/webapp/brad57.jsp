@@ -28,7 +28,9 @@ ${"Hello, World<br />" }<br />
 
 ${member.id }:${member.account }:${member.realname }<br />
 ${member }
-
+<hr />
+<c:remove var="member"/>
+${member }
 
 
 

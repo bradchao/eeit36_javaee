@@ -32,12 +32,24 @@
 </head>
 <body>
 
-${rs.rowCount }<br />
-${rs.columnNames[0] }<br />
-${rs.columnNames[1] }<br />
-${rs.columnNames[2] }<br />
-${rs.columnNames[3] }<br />
+<table border="1" width="100%">
+	<tr>
+		<th>no.</th>
+		<th>Name</th>
+		<th>Address</th>
+		<th>Tel</th>
+	</tr>
 
+	<c:forEach items="${rs.rows }" var="row" varStatus="status">
+		<tr>
+			<td>${status.count }</td>
+			<td>${row.name }</td>
+			<td>${row.address }</td>
+			<td>${row.tel }</td>
+		</tr>
+	</c:forEach>	
+		
+</table>
 
 </body>
 </html>

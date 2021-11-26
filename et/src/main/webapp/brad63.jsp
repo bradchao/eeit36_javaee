@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <sql:setDataSource
 	driver="com.mysql.cj.jdbc.Driver"
@@ -17,10 +18,11 @@
 
 <c:set var="rpp" value="7" />
 
+<c:set var="pages" value="${rs1.rowCount % rpp == 0 ? (rs1.rowCount - (rs1.rowCount % rpp)) / rpp : (rs1.rowCount - (rs1.rowCount % rpp)) / rpp + 1 }" />
 <c:set var="page" value="${param.page == null ? 1 : param.page }" />
 <c:set var="start" value="${(page - 1) * rpp }" />
 <c:set var="prev" value="${page == 1 ? 1 : page - 1 }" />
-<c:set var="next" value="${page + 1 }" />
+<c:set var="next" value="${page == pages ? page : page + 1 }" />
 
 <sql:query var="rs">
 	SELECT * FROM food LIMIT ${start }, ${rpp }
@@ -35,6 +37,15 @@
 </head>
 <body>
 
+rpp : ${rpp }<br />
+total : ${rs1.rowCount }<br />
+pages : ${pages }<br />
+page : ${page }<br />
+prev : ${prev }<br />
+next : ${next }<br />
+
+
+<hr />
 <table border="1" width="100%">
 	<tr>
 		<th>no.</th>

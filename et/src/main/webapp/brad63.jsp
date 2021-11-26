@@ -11,17 +11,20 @@
 	password="root"
 	/>
 
-<sql:query var="rs">
+<sql:query var="rs1">
 	SELECT * FROM food
 </sql:query>
 
-<%
-	//Result result = (Result)pageContext.getAttribute("rs");
+<c:set var="rpp" value="7" />
 
-	//int rowCount = result.getRowCount();
-	//pageContext.setAttribute("rowCount", rowCount);
+<c:set var="page" value="${param.page == null ? 1 : param.page }" />
+<c:set var="start" value="${(page - 1) * rpp }" />
+<c:set var="prev" value="${page == 1 ? 1 : page - 1 }" />
+<c:set var="next" value="${page + 1 }" />
 
-%>
+<sql:query var="rs">
+	SELECT * FROM food LIMIT ${start }, ${rpp }
+</sql:query>
 
 	
 <!DOCTYPE html>
@@ -38,6 +41,7 @@
 		<th>Name</th>
 		<th>Address</th>
 		<th>Tel</th>
+		<th>Photo</th>
 	</tr>
 
 	<c:forEach items="${rs.rows }" var="row" varStatus="status">
@@ -46,6 +50,7 @@
 			<td>${row.name }</td>
 			<td>${row.address }</td>
 			<td>${row.tel }</td>
+			<td><img src="${row.picurl }" width="128px"/></td>
 		</tr>
 	</c:forEach>	
 		

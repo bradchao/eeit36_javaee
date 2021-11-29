@@ -31,6 +31,8 @@
 <body>
 
 <hr />
+<a href="brad65.jsp">New</a>
+<hr />
 <table border="1" width="100%">
 	<tr>
 		<th>id</th>
@@ -38,13 +40,20 @@
 		<th>realname</th>
 		<th>Del</th>
 	</tr>
+	
+	<script>
+		function delConfirm(account){
+			var isDel = confirm("Delete " + account + "?");
+			return isDel;
+		}
+	</script>
 
 	<c:forEach items="${rs.rows }" var="row" varStatus="status">
 		<tr>
 			<td>${row.id }</td>
 			<td>${row.account }</td>
 			<td>${row.realname }</td>
-			<td><a href="?delid=${row.id }">Delete</a></td>
+			<td><a href="?delid=${row.id }" onclick="return delConfirm('${row.account }');">Delete</a></td>
 		</tr>
 	</c:forEach>	
 		

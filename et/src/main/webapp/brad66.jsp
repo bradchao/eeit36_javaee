@@ -16,11 +16,14 @@
 	</c:if>
 </c:if>
 
-id = ${param.id }<br />
-editid = ${param.editid }<br />
-realname = ${param.realname }<br />
-
-
+<c:if test="${!empty param.id }">
+	<sql:update>
+		UPDATE member SET realname = ? WHERE id = ?
+		<sql:param>${param.realname }</sql:param>
+		<sql:param>${param.id }</sql:param>
+	</sql:update>
+	<c:redirect url="brad64.jsp"></c:redirect>
+</c:if>
 
 <sql:query var="rs">
 	SELECT id, account, realname FROM member WHERE id = ?

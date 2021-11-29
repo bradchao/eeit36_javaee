@@ -38,6 +38,7 @@
 		<th>id</th>
 		<th>account</th>
 		<th>realname</th>
+		<th>Edit</th>
 		<th>Del</th>
 	</tr>
 	
@@ -53,6 +54,7 @@
 			<td>${row.id }</td>
 			<td>${row.account }</td>
 			<td>${row.realname }</td>
+			<td><a href="brad66.jsp?editid=${row.id }">Edit</a></td>
 			<td><a href="?delid=${row.id }" onclick="return delConfirm('${row.account }');">Delete</a></td>
 		</tr>
 	</c:forEach>	

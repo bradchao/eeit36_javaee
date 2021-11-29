@@ -9,15 +9,6 @@
 	user="root"
 	password="root"
 />
-<c:if test="${!empty param.account }">
-	<sql:update var="count">
-		INSERT INTO member (account,passwd,realname) VALUES (?,?,?)
-		<sql:param>${param.account }</sql:param>
-		<sql:param>${BradUtils.encPasswd(param.passwd) }</sql:param>
-		<sql:param>${param.realname }</sql:param>
-	</sql:update>
-	<c:redirect url="brad64.jsp"></c:redirect>
-</c:if>
 
 <!DOCTYPE html>
 <html>
@@ -27,13 +18,12 @@
 </head>
 <body>
 
-<h1>新增資料</h1>
+<h1>修改資料</h1>
 <hr />
 <form>
 	Account: <input type="text" name="account" /><br />
-	Password: <input type="password" name="passwd" /><br />
 	Realname: <input type="text" name="realname" /><br />
-	<input type="submit" value="新增" />
+	<input type="submit" value="更新" />
 </form>
 
 </body>

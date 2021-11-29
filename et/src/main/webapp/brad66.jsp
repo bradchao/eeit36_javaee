@@ -3,6 +3,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+<%
+	request.setCharacterEncoding("UTF-8");
+%>
 <sql:setDataSource
 	driver="com.mysql.cj.jdbc.Driver"
 	url="jdbc:mysql://localhost:3306/eeit36"
@@ -14,15 +17,17 @@
 	<c:if test="${!empty param.id }">
 		<c:redirect url="brad64.jsp" />
 	</c:if>
+	
 </c:if>
 
 <c:if test="${!empty param.id }">
+	${param.realname }
 	<sql:update>
 		UPDATE member SET realname = ? WHERE id = ?
 		<sql:param>${param.realname }</sql:param>
 		<sql:param>${param.id }</sql:param>
 	</sql:update>
-	<c:redirect url="brad64.jsp"></c:redirect>
+	<c:redirect url="brad64.jsp"></c:redirect>	
 </c:if>
 
 <sql:query var="rs">

@@ -20,6 +20,10 @@ public class BradUtils {
 		return hsPasswd;
 	}
 	
+	public static boolean isBrad(String str, String key) {
+		return str.contains(key);
+	}
+	
 	public static String cal(String x , String y, String op) {
 		
 		if (x.length() == 0 && y.length() == 0 && op.length() == 0) {

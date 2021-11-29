@@ -7,8 +7,17 @@ import java.io.InputStreamReader;
 
 public class BradUtils {
 
+	public static int createScore() {
+		return (int)(Math.random()*101);
+	}
+	
 	public static int createLottery() {
 		return (int)(Math.random()*49 + 1);
+	}
+	
+	public static String encPasswd(String passwd) {
+		String hsPasswd = BCrypt.hashpw(passwd, BCrypt.gensalt() );
+		return hsPasswd;
 	}
 	
 	public static String cal(String x , String y, String op) {

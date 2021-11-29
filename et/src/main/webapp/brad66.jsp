@@ -10,6 +10,23 @@
 	password="root"
 />
 
+<c:if test="${pageContext.request.method == 'GET' }">
+	<c:if test="${!empty param.id }">
+		<c:redirect url="brad64.jsp" />
+	</c:if>
+</c:if>
+
+id = ${param.id }<br />
+editid = ${param.editid }<br />
+realname = ${param.realname }<br />
+
+
+
+<sql:query var="rs">
+	SELECT id, account, realname FROM member WHERE id = ?
+	<sql:param>${param.editid }</sql:param>
+</sql:query>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,9 +37,10 @@
 
 <h1>修改資料</h1>
 <hr />
-<form>
-	Account: <input type="text" name="account" /><br />
-	Realname: <input type="text" name="realname" /><br />
+<form method="post">
+	<input type="hidden" name="id" value="${rs.rows[0].id }">
+	Account: ${rs.rows[0].account }<br />
+	Realname: <input type="text" name="realname" value="${rs.rows[0].realname }" /><br />
 	<input type="submit" value="更新" />
 </form>
 
